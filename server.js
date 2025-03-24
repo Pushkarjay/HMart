@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
     res.json({ message: 'Welcome to HMart API' });
   });
   
-  app.use(express.static('public'));
+app.use(express.static('public'));
 
 // Security middleware
 app.use(helmet());
