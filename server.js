@@ -9,16 +9,10 @@ const productRoutes = require('./routes/products');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to HMart API' });
-  });
-  
-app.use(express.static('public'));
-
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -35,7 +29,13 @@ app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Static files
+app.use(express.static('public'));
 app.use('/uploads', express.static('uploads'));
+
+// Welcome route
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to HMart API' });
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -50,7 +50,7 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// 404 handler (moved to the end, before the global error handler)
+// 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
     status: 'error',
