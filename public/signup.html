@@ -33,15 +33,6 @@
     </div>
   </header>
 
-  <!-- Back Navigation -->
-  <div class="back-nav">
-    <div class="container">
-      <a href="index.html" class="back-link">
-        <i class="fas fa-arrow-left"></i> Back to Home
-      </a>
-    </div>
-  </div>
-
   <!-- Signup Section -->
   <section class="auth-section">
     <div class="container">
@@ -59,19 +50,19 @@
         <form id="signup-form" class="auth-form">
           <div class="form-group">
             <label for="full-name">Full Name</label>
-            <input type="text" id="full-name" placeholder="John Doe" required>
+            <input type="text" id="full-name" required>
           </div>
           
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="your.email@example.com" required>
+            <input type="email" id="email" required>
           </div>
           
           <div class="form-group">
             <label for="hostel-select">Hostel</label>
             <select id="hostel-select" required>
               <option value="">Select your hostel</option>
-             <option value="KP-1">KP-1</option>
+              <option value="KP-1">KP-1</option>
               <option value="KP-1A">KP-1A</option>
               <option value="KP-5">KP-5</option>
               <option value="KP-6">KP-6</option>
@@ -85,20 +76,14 @@
             </select>
           </div>
           
-          <div class="form-group" id="other-hostel-group" style="display: none;">
-            <label for="other-hostel">Specify Hostel</label>
-            <input type="text" id="other-hostel" placeholder="Enter your hostel name">
-          </div>
-          
           <div class="form-group">
             <label for="room-number">Room Number</label>
-            <input type="text" id="room-number" placeholder="e.g., 302" required>
+            <input type="text" id="room-number" required>
           </div>
           
           <div class="form-group">
             <label for="whatsapp-number">WhatsApp Number</label>
-            <input type="text" id="whatsapp-number" placeholder="e.g., 9876543210" required>
-            <p class="form-hint">For buyers to contact you</p>
+            <input type="text" id="whatsapp-number" required>
           </div>
           
           <div class="form-group">
@@ -109,7 +94,6 @@
                 <i class="far fa-eye"></i>
               </button>
             </div>
-            <p class="form-hint">Must be at least 8 characters</p>
           </div>
           
           <div class="form-group">
@@ -142,51 +126,49 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <h3>HMart</h3>
-          <p class="slogan">Your midnight craving, our responsibility</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>Marketplace</h4>
-            <ul>
-              <li><a href="products.html">Browse Items</a></li>
-              <li><a href="sell.html">Sell an Item</a></li>
-              <li><a href="#">Categories</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Account</h4>
-            <ul>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="signup.html">Sign Up</a></li>
-              <li><a href="#">My Profile</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Support</h4>
-            <ul>
-              <li><a href="#">Help Center</a></li>
-              <li><a href="#">Safety Tips</a></li>
-              <li><a href="#">Contact Us</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2023 HMart. All rights reserved.</p>
-        <div class="social-links">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
+      <p>&copy; 2023 HMart. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
-  <script src="js/signup.js"></script>
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const name = document.getElementById('full-name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const hostel = document.getElementById('hostel-select').value;
+        const roomNumber = document.getElementById('room-number').value;
+        const whatsappNumber = document.getElementById('whatsapp-number').value;
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, password, hostel, roomNumber, whatsappNumber }),
+            });
+
+            const data = await response.json();
+
+            if (data.message) {
+                localStorage.setItem('token', data.token);
+                window.location.href = 'index.html';
+            } else {
+                alert(`Signup failed: ${data.error}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Signup failed: An unexpected error occurred.');
+        }
+    });
+  </script>
 </body>
 </html>
-

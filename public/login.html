@@ -33,15 +33,6 @@
     </div>
   </header>
 
-  <!-- Back Navigation -->
-  <div class="back-nav">
-    <div class="container">
-      <a href="index.html" class="back-link">
-        <i class="fas fa-arrow-left"></i> Back to Home
-      </a>
-    </div>
-  </div>
-
   <!-- Login Section -->
   <section class="auth-section">
     <div class="container">
@@ -59,7 +50,7 @@
         <form id="login-form" class="auth-form">
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="your.email@example.com" required>
+            <input type="email" id="email" required>
           </div>
           
           <div class="form-group">
@@ -93,51 +84,42 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <h3>HMart</h3>
-          <p class="slogan">Your midnight craving, our responsibility</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>Marketplace</h4>
-            <ul>
-              <li><a href="products.html">Browse Items</a></li>
-              <li><a href="sell.html">Sell an Item</a></li>
-              <li><a href="#">Categories</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Account</h4>
-            <ul>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="signup.html">Sign Up</a></li>
-              <li><a href="#">My Profile</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Support</h4>
-            <ul>
-              <li><a href="#">Help Center</a></li>
-              <li><a href="#">Safety Tips</a></li>
-              <li><a href="#">Contact Us</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2023 HMart. All rights reserved.</p>
-        <div class="social-links">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
+      <p>&copy; 2023 HMart. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
-  <script src="js/login.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+
+            if (data.token) {
+                // Store the token in localStorage
+                localStorage.setItem('token', data.token);
+
+                // Redirect to the home page
+                window.location.href = 'index.html';
+            } else {
+                alert(`Login failed: ${data.error}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Login failed: An unexpected error occurred.');
+        }
+    });
+  </script>
 </body>
 </html>
-

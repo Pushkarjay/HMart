@@ -19,11 +19,11 @@
         <ul class="nav-links">
           <li><a href="index.html" class="active">Home</a></li>
           <li><a href="products.html">Browse</a></li>
-          <li><a href="sell.html">Sell</a></li>
+          <li><a href="sell.html" id="sell-link">Sell</a></li>
           <li><a href="about.html">About</a></li>
         </ul>
       </nav>
-      <div class="auth-buttons">
+      <div class="auth-buttons" id="auth-buttons">
         <a href="login.html" class="btn btn-outline">Login</a>
         <a href="signup.html" class="btn btn-primary">Sign Up</a>
       </div>
@@ -43,7 +43,7 @@
           <a href="products.html" class="btn btn-primary">
             Browse Items <i class="fas fa-shopping-bag"></i>
           </a>
-          <a href="signup.html" class="btn btn-secondary">
+          <a href="signup.html" class="btn btn-secondary" id="get-started-btn">
             Get Started <i class="fas fa-arrow-right"></i>
           </a>
         </div>
@@ -121,110 +121,25 @@
     </div>
   </section>
 
-  <!-- Featured Products Section -->
-  <section class="featured-products">
-    <div class="container">
-      <h2 class="section-title">Popular Items</h2>
-      <div class="products-grid" id="featured-products">
-        <!-- Products will be loaded via JavaScript -->
-        <div class="product-card skeleton">
-          <div class="product-image skeleton-image"></div>
-          <div class="product-details">
-            <div class="skeleton-text skeleton-title"></div>
-            <div class="skeleton-text skeleton-price"></div>
-            <div class="skeleton-text skeleton-location"></div>
-          </div>
-        </div>
-        <div class="product-card skeleton">
-          <div class="product-image skeleton-image"></div>
-          <div class="product-details">
-            <div class="skeleton-text skeleton-title"></div>
-            <div class="skeleton-text skeleton-price"></div>
-            <div class="skeleton-text skeleton-location"></div>
-          </div>
-        </div>
-        <div class="product-card skeleton">
-          <div class="product-image skeleton-image"></div>
-          <div class="product-details">
-            <div class="skeleton-text skeleton-title"></div>
-            <div class="skeleton-text skeleton-price"></div>
-            <div class="skeleton-text skeleton-location"></div>
-          </div>
-        </div>
-        <div class="product-card skeleton">
-          <div class="product-image skeleton-image"></div>
-          <div class="product-details">
-            <div class="skeleton-text skeleton-title"></div>
-            <div class="skeleton-text skeleton-price"></div>
-            <div class="skeleton-text skeleton-location"></div>
-          </div>
-        </div>
-      </div>
-      <div class="view-all-container">
-        <a href="products.html" class="btn btn-outline">View All Products</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Join Section -->
-  <section class="join-section">
-    <div class="container">
-      <div class="join-content">
-        <h2>Become a Seller</h2>
-        <p>Start selling your items to students in your hostel</p>
-        <a href="sell.html" class="btn btn-primary">Start Selling</a>
-      </div>
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <h3>HMart</h3>
-          <p class="slogan">Your midnight craving, our responsibility</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-column">
-            <h4>Marketplace</h4>
-            <ul>
-              <li><a href="products.html">Browse Items</a></li>
-              <li><a href="sell.html">Sell an Item</a></li>
-              <li><a href="#">Categories</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Account</h4>
-            <ul>
-              <li><a href="login.html">Login</a></li>
-              <li><a href="signup.html">Sign Up</a></li>
-              <li><a href="#">My Profile</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Support</h4>
-            <ul>
-              <li><a href="#">Help Center</a></li>
-              <li><a href="#">Safety Tips</a></li>
-              <li><a href="#">Contact Us</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2023 HMart. All rights reserved.</p>
-        <div class="social-links">
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-      </div>
+      <p>&copy; 2023 HMart. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
-  <script src="js/products.js"></script>
+  <script>
+    // Check if the user is logged in (token exists in localStorage)
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        // Hide login/signup buttons and show "Sell" option
+        document.getElementById("auth-buttons").style.display = "none";
+        document.getElementById("sell-link").style.display = "inline";
+    } else {
+        // If user is not logged in, show login/signup buttons and hide "Sell"
+        document.getElementById("sell-link").style.display = "none";
+    }
+  </script>
 </body>
 </html>
-
