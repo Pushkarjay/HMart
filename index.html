@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HMart - Hostel Marketplace</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header/Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">HMart</a>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="products.html">Browse</a></li>
+          <li><a href="sell.html">Sell</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up</a>
+      </div>
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Hostel Marketplace</h1>
+        <p class="slogan">Your midnight craving, our responsibility</p>
+        <div class="hero-buttons">
+          <a href="products.html" class="btn btn-primary">
+            Browse Items <i class="fas fa-shopping-bag"></i>
+          </a>
+          <a href="signup.html" class="btn btn-secondary">
+            Get Started <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories">
+    <div class="container">
+      <h2 class="section-title">What are you looking for?</h2>
+      <div class="category-grid">
+        <a href="products.html?category=food" class="category-card">
+          <div class="category-icon"><i class="fas fa-utensils"></i></div>
+          <h3>Food</h3>
+        </a>
+        <a href="products.html?category=snacks" class="category-card">
+          <div class="category-icon"><i class="fas fa-cookie"></i></div>
+          <h3>Snacks</h3>
+        </a>
+        <a href="products.html?category=beverages" class="category-card">
+          <div class="category-icon"><i class="fas fa-coffee"></i></div>
+          <h3>Beverages</h3>
+        </a>
+        <a href="products.html?category=essentials" class="category-card">
+          <div class="category-icon"><i class="fas fa-shopping-basket"></i></div>
+          <h3>Essentials</h3>
+        </a>
+        <a href="products.html?category=stationery" class="category-card">
+          <div class="category-icon"><i class="fas fa-pencil-alt"></i></div>
+          <h3>Stationery</h3>
+        </a>
+        <a href="products.html?category=electronics" class="category-card">
+          <div class="category-icon"><i class="fas fa-laptop"></i></div>
+          <h3>Electronics</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <h3>Sign Up</h3>
+          <p>Create an account with your hostel details</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-search"></i>
+          </div>
+          <h3>Browse</h3>
+          <p>Find items from students in your hostel</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-shopping-cart"></i>
+          </div>
+          <h3>Order</h3>
+          <p>Place your order with just a few clicks</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <i class="fas fa-hand-holding-heart"></i>
+          </div>
+          <h3>Receive</h3>
+          <p>Get your items delivered to your room</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="featured-products">
+    <div class="container">
+      <h2 class="section-title">Popular Items</h2>
+      <div class="products-grid" id="featured-products">
+        <!-- Products will be loaded via JavaScript -->
+        <div class="product-card skeleton">
+          <div class="product-image skeleton-image"></div>
+          <div class="product-details">
+            <div class="skeleton-text skeleton-title"></div>
+            <div class="skeleton-text skeleton-price"></div>
+            <div class="skeleton-text skeleton-location"></div>
+          </div>
+        </div>
+        <div class="product-card skeleton">
+          <div class="product-image skeleton-image"></div>
+          <div class="product-details">
+            <div class="skeleton-text skeleton-title"></div>
+            <div class="skeleton-text skeleton-price"></div>
+            <div class="skeleton-text skeleton-location"></div>
+          </div>
+        </div>
+        <div class="product-card skeleton">
+          <div class="product-image skeleton-image"></div>
+          <div class="product-details">
+            <div class="skeleton-text skeleton-title"></div>
+            <div class="skeleton-text skeleton-price"></div>
+            <div class="skeleton-text skeleton-location"></div>
+          </div>
+        </div>
+        <div class="product-card skeleton">
+          <div class="product-image skeleton-image"></div>
+          <div class="product-details">
+            <div class="skeleton-text skeleton-title"></div>
+            <div class="skeleton-text skeleton-price"></div>
+            <div class="skeleton-text skeleton-location"></div>
+          </div>
+        </div>
+      </div>
+      <div class="view-all-container">
+        <a href="products.html" class="btn btn-outline">View All Products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join Section -->
+  <section class="join-section">
+    <div class="container">
+      <div class="join-content">
+        <h2>Become a Seller</h2>
+        <p>Start selling your items to students in your hostel</p>
+        <a href="sell.html" class="btn btn-primary">Start Selling</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h3>HMart</h3>
+          <p class="slogan">Your midnight craving, our responsibility</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Marketplace</h4>
+            <ul>
+              <li><a href="products.html">Browse Items</a></li>
+              <li><a href="sell.html">Sell an Item</a></li>
+              <li><a href="#">Categories</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Account</h4>
+            <ul>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="signup.html">Sign Up</a></li>
+              <li><a href="#">My Profile</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Safety Tips</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 HMart. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/products.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details - HMart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header/Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">HMart</a>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html" class="active">Browse</a></li>
+          <li><a href="sell.html">Sell</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up</a>
+      </div>
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Back Navigation -->
+  <div class="back-nav">
+    <div class="container">
+      <a href="products.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Products
+      </a>
+    </div>
+  </div>
+
+  <!-- Product Detail Section -->
+  <section class="product-detail">
+    <div class="container">
+      <div class="loading-spinner" id="product-loading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Loading product details...</p>
+      </div>
+      
+      <div class="product-content" id="product-content" style="display: none;">
+        <div class="product-gallery">
+          <div class="main-image">
+            <img id="main-product-image" src="https://via.placeholder.com/600x600" alt="Product Image">
+          </div>
+          <div class="thumbnail-gallery" id="thumbnail-gallery">
+            <!-- Thumbnails will be populated by JavaScript -->
+          </div>
+        </div>
+        
+        <div class="product-info">
+          <div class="product-header">
+            <h1 id="product-title">Product Title</h1>
+            <span class="product-category" id="product-category">Category</span>
+          </div>
+          
+          <div class="product-price" id="product-price">₹0</div>
+          <div class="product-date" id="product-date">Listed on January 1, 2023</div>
+          
+          <div class="product-divider"></div>
+          
+          <div class="product-description">
+            <h2>Description</h2>
+            <p id="product-description">Product description will appear here.</p>
+          </div>
+          
+          <div class="product-divider"></div>
+          
+          <div class="product-location">
+            <h2>Location</h2>
+            <div class="location-details">
+              <div class="location-item">
+                <i class="fas fa-building"></i>
+                <span id="product-hostel">Hostel Name</span>
+              </div>
+              <div class="location-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span id="product-room">Room Number</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-divider"></div>
+          
+          <div class="seller-info">
+            <h2>Seller Information</h2>
+            <p id="seller-name">Seller Name</p>
+          </div>
+          
+          <div class="product-actions">
+            <button id="contact-seller" class="btn btn-primary">
+              <i class="fab fa-whatsapp"></i> Contact Seller
+            </button>
+            <button class="btn btn-icon">
+              <i class="far fa-heart"></i>
+            </button>
+            <button class="btn btn-icon">
+              <i class="fas fa-share-alt"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Not Found State -->
+      <div class="not-found" id="product-not-found" style="display: none;">
+        <i class="fas fa-search"></i>
+        <h2>Product Not Found</h2>
+        <p>The product you're looking for doesn't exist or has been removed.</p>
+        <a href="products.html" class="btn btn-primary">Browse Products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products Section -->
+  <section class="related-products">
+    <div class="container">
+      <h2>Similar Products</h2>
+      <div class="products-grid" id="related-products">
+        <!-- Related products will be populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h3>HMart</h3>
+          <p class="slogan">Your midnight craving, our responsibility</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Marketplace</h4>
+            <ul>
+              <li><a href="products.html">Browse Items</a></li>
+              <li><a href="sell.html">Sell an Item</a></li>
+              <li><a href="#">Categories</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Account</h4>
+            <ul>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="signup.html">Sign Up</a></li>
+              <li><a href="#">My Profile</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Safety Tips</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 HMart. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/product-detail.js"></script>
+</body>
+</html>
+

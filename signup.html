@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - HMart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header/Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">HMart</a>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Browse</a></li>
+          <li><a href="sell.html">Sell</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline">Login</a>
+        <a href="signup.html" class="btn btn-primary active">Sign Up</a>
+      </div>
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Back Navigation -->
+  <div class="back-nav">
+    <div class="container">
+      <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+  </div>
+
+  <!-- Signup Section -->
+  <section class="auth-section">
+    <div class="container">
+      <div class="auth-container">
+        <div class="auth-header">
+          <h1>Create an Account</h1>
+          <p>Join the hostel marketplace community</p>
+        </div>
+        
+        <div id="error-message" class="error-message" style="display: none;">
+          <i class="fas fa-exclamation-circle"></i>
+          <span id="error-text">Error message will appear here</span>
+        </div>
+        
+        <form id="signup-form" class="auth-form">
+          <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" placeholder="John Doe" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="your.email@example.com" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="hostel-select">Hostel</label>
+            <select id="hostel-select" required>
+              <option value="">Select your hostel</option>
+              <option value="KP-1">KP-1</option>
+              <option value="KP-1A">KP-1A</option>
+              <option value="KP-12">KP-12</option>
+              <option value="KP-6">KP-6</option>
+              <option value="KP-5">KP-5</option>
+              <option value="KP-51">KP-51</option>
+              <option value="QC-4">QC-4</option>
+              <option value="QC-3">QC-3</option>
+              <option value="other">Other (Not Listed)</option>
+            </select>
+          </div>
+          
+          <div class="form-group" id="other-hostel-group" style="display: none;">
+            <label for="other-hostel">Specify Hostel</label>
+            <input type="text" id="other-hostel" placeholder="Enter your hostel name">
+          </div>
+          
+          <div class="form-group">
+            <label for="room-number">Room Number</label>
+            <input type="text" id="room-number" placeholder="e.g., 302" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="whatsapp-number">WhatsApp Number</label>
+            <input type="text" id="whatsapp-number" placeholder="e.g., 9876543210" required>
+            <p class="form-hint">For buyers to contact you</p>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="password-input">
+              <input type="password" id="password" required>
+              <button type="button" class="password-toggle">
+                <i class="far fa-eye"></i>
+              </button>
+            </div>
+            <p class="form-hint">Must be at least 8 characters</p>
+          </div>
+          
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <div class="password-input">
+              <input type="password" id="confirm-password" required>
+              <button type="button" class="password-toggle">
+                <i class="far fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-options">
+            <div class="terms-checkbox">
+              <input type="checkbox" id="terms" required>
+              <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+        </form>
+        
+        <div class="auth-footer">
+          <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h3>HMart</h3>
+          <p class="slogan">Your midnight craving, our responsibility</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Marketplace</h4>
+            <ul>
+              <li><a href="products.html">Browse Items</a></li>
+              <li><a href="sell.html">Sell an Item</a></li>
+              <li><a href="#">Categories</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Account</h4>
+            <ul>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="signup.html">Sign Up</a></li>
+              <li><a href="#">My Profile</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Safety Tips</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 HMart. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/signup.js"></script>
+</body>
+</html>
+

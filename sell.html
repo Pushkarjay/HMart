@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell an Item - HMart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header/Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html">HMart</a>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Browse</a></li>
+          <li><a href="sell.html" class="active">Sell</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-outline">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up</a>
+      </div>
+      <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Back Navigation -->
+  <div class="back-nav">
+    <div class="container">
+      <a href="products.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Products
+      </a>
+    </div>
+  </div>
+
+  <!-- Sell Form Section -->
+  <section class="sell-section">
+    <div class="container">
+      <h1>Sell an Item</h1>
+      
+      <div class="sell-form-container">
+        <form id="sell-form" class="sell-form">
+          <div class="form-group">
+            <label for="product-title">Product Title</label>
+            <input type="text" id="product-title" placeholder="e.g., Maggi Noodles Pack of 6" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-category">Category</label>
+            <select id="product-category" required>
+              <option value="">Select a category</option>
+              <option value="food">Food</option>
+              <option value="snacks">Snacks</option>
+              <option value="beverages">Beverages</option>
+              <option value="essentials">Essentials</option>
+              <option value="stationery">Stationery</option>
+              <option value="electronics">Electronics</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-price">Price (₹)</label>
+            <input type="number" id="product-price" min="0" step="10" placeholder="e.g., 120" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-description">Description</label>
+            <textarea id="product-description" rows="5" placeholder="Describe your item in detail. Include condition, quantity, brand, etc." required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>Product Images</label>
+            <div class="image-upload-container">
+              <div id="image-preview-container" class="image-preview-container">
+                <!-- Image previews will be added here by JavaScript -->
+                <div class="image-upload-box">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <p>Upload Image</p>
+                  <input type="file" id="image-upload" accept="image/*" multiple>
+                </div>
+              </div>
+            </div>
+            <p class="form-hint">Upload up to 5 images. First image will be the cover.</p>
+          </div>
+          
+          <div class="location-section">
+            <h3>Location Information</h3>
+            
+            <div class="form-group">
+              <label for="hostel-select">Hostel</label>
+              <select id="hostel-select" required>
+                <option value="">Select your hostel</option>
+                <option value="KP-1">KP-1</option>
+                <option value="KP-1A">KP-1A</option>
+                <option value="KP-12">KP-12</option>
+                <option value="KP-6">KP-6</option>
+                <option value="KP-5">KP-5</option>
+                <option value="KP-51">KP-51</option>
+                <option value="QC-4">QC-4</option>
+                <option value="QC-3">QC-3</option>
+                <option value="other">Other (Not Listed)</option>
+              </select>
+            </div>
+            
+            <div class="form-group" id="other-hostel-group" style="display: none;">
+              <label for="other-hostel">Specify Hostel</label>
+              <input type="text" id="other-hostel" placeholder="Enter your hostel name">
+            </div>
+            
+            <div class="form-group">
+              <label for="room-number">Room Number</label>
+              <input type="text" id="room-number" placeholder="e.g., 302" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="whatsapp-number">WhatsApp Number</label>
+              <input type="text" id="whatsapp-number" placeholder="e.g., 9876543210" required>
+              <p class="form-hint">For buyers to contact you</p>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="btn btn-outline" id="cancel-button">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="submit-button">List Item for Sale</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h3>HMart</h3>
+          <p class="slogan">Your midnight craving, our responsibility</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Marketplace</h4>
+            <ul>
+              <li><a href="products.html">Browse Items</a></li>
+              <li><a href="sell.html">Sell an Item</a></li>
+              <li><a href="#">Categories</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Account</h4>
+            <ul>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="signup.html">Sign Up</a></li>
+              <li><a href="#">My Profile</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Safety Tips</a></li>
+              <li><a href="#">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 HMart. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/sell.js"></script>
+</body>
+</html>
+
