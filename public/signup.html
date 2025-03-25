@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
   <!-- Header/Navigation -->
   <header class="header">
     <div class="container">
@@ -41,23 +42,23 @@
           <h1>Create an Account</h1>
           <p>Join the hostel marketplace community</p>
         </div>
-        
+
         <div id="error-message" class="error-message" style="display: none;">
           <i class="fas fa-exclamation-circle"></i>
           <span id="error-text">Error message will appear here</span>
         </div>
-        
+
         <form id="signup-form" class="auth-form">
           <div class="form-group">
             <label for="full-name">Full Name</label>
             <input type="text" id="full-name" required>
           </div>
-          
+
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" required>
           </div>
-          
+
           <div class="form-group">
             <label for="hostel-select">Hostel</label>
             <select id="hostel-select" required>
@@ -75,17 +76,17 @@
               <option value="other">Other (Not Listed)</option>
             </select>
           </div>
-          
+
           <div class="form-group">
             <label for="room-number">Room Number</label>
             <input type="text" id="room-number" required>
           </div>
-          
+
           <div class="form-group">
             <label for="whatsapp-number">WhatsApp Number</label>
             <input type="text" id="whatsapp-number" required>
           </div>
-          
+
           <div class="form-group">
             <label for="password">Password</label>
             <div class="password-input">
@@ -95,7 +96,7 @@
               </button>
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="confirm-password">Confirm Password</label>
             <div class="password-input">
@@ -105,17 +106,17 @@
               </button>
             </div>
           </div>
-          
+
           <div class="form-options">
             <div class="terms-checkbox">
               <input type="checkbox" id="terms" required>
               <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
             </div>
           </div>
-          
+
           <button type="submit" class="btn btn-primary btn-block">Create Account</button>
         </form>
-        
+
         <div class="auth-footer">
           <p>Already have an account? <a href="login.html">Login</a></p>
         </div>
@@ -168,6 +169,20 @@
             console.error('Error:', error);
             alert('Signup failed: An unexpected error occurred.');
         }
+    });
+
+    // Toggle password visibility
+    document.querySelectorAll(".password-toggle").forEach(button => {
+        button.addEventListener("click", () => {
+            const input = button.previousElementSibling;
+            if (input.type === "password") {
+                input.type = "text";
+                button.innerHTML = '<i class="far fa-eye-slash"></i>';
+            } else {
+                input.type = "password";
+                button.innerHTML = '<i class="far fa-eye"></i>';
+            }
+        });
     });
   </script>
 </body>

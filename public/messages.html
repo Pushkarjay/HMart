@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Messages - HMart</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Header/Navigation -->
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <a href="index.html">HMart</a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Browse</a></li>
+        <li><a href="sell.html">Sell</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+    <div class="user-menu">
+      <div class="user-menu-toggle">
+        <img src="https://via.placeholder.com/32" alt="User" class="user-avatar" id="header-user-avatar">
+        <span class="user-name" id="header-user-name">John Doe</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="user-dropdown">
+        <ul>
+          <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+          <li><a href="profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+          <li><a href="my-listings.html"><i class="fas fa-list"></i> My Listings</a></li>
+          <li><a href="messages.html"><i class="fas fa-envelope"></i> Messages</a></li>
+          <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+          <li class="divider"></li>
+          <li><a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+</header>
+
+<!-- Messages Section -->
+<section class="dashboard-section">
+  <div class="container">
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <div class="dashboard-sidebar">
+        <div class="user-profile-card">
+          <div class="user-avatar-container">
+            <img src="https://via.placeholder.com/100" alt="User" class="user-avatar-large" id="sidebar-user-avatar">
+            <div class="avatar-edit">
+              <label for="avatar-upload">
+                <i class="fas fa-camera"></i>
+              </label>
+              <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            </div>
+          </div>
+          <h3 class="user-name" id="sidebar-user-name">John Doe</h3>
+          <p class="user-hostel" id="user-hostel">KP-1, Room 302</p>
+          <div class="user-stats">
+            <div class="stat">
+              <span class="stat-value" id="listings-count">5</span>
+              <span class="stat-label">Listings</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="sales-count">12</span>
+              <span class="stat-label">Sales</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="rating-value">4.8</span>
+              <span class="stat-label">Rating</span>
+            </div>
+          </div>
+        </div>
+        
+        <nav class="dashboard-nav">
+          <ul>
+            <li>
+              <a href="dashboard.html">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="profile.html">
+                <i class="fas fa-user"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <a href="my-listings.html">
+                <i class="fas fa-list"></i>
+                <span>My Listings</span>
+              </a>
+            </li>
+            <li>
+              <a href="orders.html">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Orders</span>
+                <span class="badge">3</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="messages.html">
+                <i class="fas fa-envelope"></i>
+                <span>Messages</span>
+                <span class="badge">5</span>
+              </a>
+            </li>
+            <li>
+              <a href="favorites.html">
+                <i class="fas fa-heart"></i>
+                <span>Favorites</span>
+              </a>
+            </li>
+            <li>
+              <a href="settings.html">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="dashboard-content">
+        <div class="dashboard-header">
+          <h1>Messages</h1>
+        </div>
+        
+        <!-- Messages Container -->
+        <div class="messages-container">
+          <!-- Conversations List -->
+          <div class="conversations-list">
+            <div class="search-container">
+              <i class="fas fa-search search-icon"></i>
+              <input type="text" id="search-conversations" placeholder="Search messages...">
+            </div>
+            
+            <div class="conversation-items">
+              <div class="conversation-item active" data-conversation="1">
+                <div class="conversation-avatar">
+                  <img src="https://via.placeholder.com/40" alt="Rahul">
+                  <span class="status-indicator online"></span>
+                </div>
+                <div class="conversation-details">
+                  <div class="conversation-header">
+                    <h4 class="conversation-name">Rahul</h4>
+                    <span class="conversation-time">2h ago</span>
+                  </div>
+                  <p class="conversation-preview">Is the USB C Cable still available?</p>
+                </div>
+                <div class="conversation-badge">
+                  <span class="badge">2</span>
+                </div>
+              </div>
+              
+              <div class="conversation-item" data-conversation="2">
+                <div class="conversation-avatar">
+                  <img src="https://via.placeholder.com/40" alt="Priya">
+                  <span class="status-indicator offline"></span>
+                </div>
+                <div class="conversation-details">
+                  <div class="conversation-header">
+                    <h4 class="conversation-name">Priya</h4>
+                    <span class="conversation-time">Yesterday</span>
+                  </div>
+                  <p class="conversation-preview">Thanks for the quick delivery!</p>
+                </div>
+              </div>
+              
+              <div class="conversation-item" data-conversation="3">
+                <div class="conversation-avatar">
+                  <img src="https://via.placeholder.com/40" alt="Amit">
+                  <span class="status-indicator online"></span>
+                </div>
+                <div class="conversation-details">
+                  <div class="conversation-header">
+                    <h4 class="conversation-name">Amit</h4>
+                    <span class="conversation-time">2d ago</span>
+                  </div>
+                  <p class="conversation-preview">Do you have any more Maggi packets?</p>
+                </div>
+                <div class="conversation-badge">
+                  <span class="badge">1</span>
+                </div>
+              </div>
+              
+              <div class="conversation-item" data-conversation="4">
+                <div class="conversation-avatar">
+                  <img src="https://via.placeholder.com/40" alt="Sneha">
+                  <span class="status-indicator offline"></span>
+                </div>
+                <div class="conversation-details">
+                  <div class="conversation-header">
+                    <h4 class="conversation-name">Sneha</h4>
+                    <span class="conversation-time">3d ago</span>
+                  </div>
+                  <p class="conversation-preview">I'm interested in the study lamp.</p>
+                </div>
+              </div>
+              
+              <div class="conversation-item" data-conversation="5">
+                <div class="conversation-avatar">
+                  <img src="https://via.placeholder.com/40" alt="Vikram">
+                  <span class="status-indicator offline"></span>
+                </div>
+                <div class="conversation-details">
+                  <div class="conversation-header">
+                    <h4 class="conversation-name">Vikram</h4>
+                    <span class="conversation-time">1w ago</span>
+                  </div>
+                  <p class="conversation-preview">Can you deliver to KP-12?</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Chat Area -->
+          <div class="chat-area">
+            <div class="chat-header">
+              <div class="chat-user-info">
+                <div class="chat-avatar">
+                  <img src="https://via.placeholder.com/40" alt="Rahul">
+                  <span class="status-indicator online"></span>
+                </div>
+                <div class="chat-user-details">
+                  <h4 class="chat-user-name">Rahul</h4>
+                  <p class="chat-user-status">Online</p>
+                </div>
+              </div>
+              <div class="chat-actions">
+                <button class="btn btn-icon">
+                  <i class="fas fa-phone"></i>
+                </button>
+                <button class="btn btn-icon">
+                  <i class="fas fa-video"></i>
+                </button>
+                <button class="btn btn-icon">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+              <div class="message-date-divider">
+                <span>Today</span>
+              </div>
+              
+              <div class="message received">
+                <div class="message-avatar">
+                  <img src="https://via.placeholder.com/32" alt="Rahul">
+                </div>
+                <div class="message-content">
+                  <div class="message-bubble">
+                    <p>Hi, I'm interested in your USB C Cable. Is it still available?</p>
+                  </div>
+                  <div class="message-info">
+                    <span class="message-time">10:30 AM</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="message sent">
+                <div class="message-content">
+                  <div class="message-bubble">
+                    <p>Yes, it's still available!</p>
+                  </div>
+                  <div class="message-info">
+                    <span class="message-time">10:32 AM</span>
+                    <span class="message-status">
+                      <i class="fas fa-check-double"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="message received">
+                <div class="message-avatar">
+                  <img src="https://via.placeholder.com/32" alt="Rahul">
+                </div>
+                <div class="message-content">
+                  <div class="message-bubble">
+                    <p>Great! How much are you selling it for?</p>
+                  </div>
+                  <div class="message-info">
+                    <span class="message-time">10:33 AM</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="message sent">
+                <div class="message-content">
+                  <div class="message-bubble">
+                    <p>It's ₹250. It's a high-quality cable that supports fast charging.</p>
+                  </div>
+                  <div class="message-info">
+                    <span class="message-time">10:35 AM</span>
+                    <span class="message-status">
+                      <i class="fas fa-check-double"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="message received">
+                <div class="message-avatar">
+                  <img src="https://via.placeholder.com/32" alt="Rahul">
+                </div>
+                <div class="message-content">
+                  <div class="message-bubble">
+                    <p>Can you do ₹200?</p>
+                  </div>
+                  <div class="message-info">
+                    <span class="message-time">10:36 AM</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="message sent">
+                <div class="message-content">
+                  <div class="message-bubble">
+                    <p>I can do ₹230, that's the lowest I can go.</p>
+                  </div>
+                  <div class="message-info">
+                    <span class="message-time">10:38 AM</span>
+                    <span class="message-status">
+                      <i class="fas fa-check-double"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="message received">
+                <div class="message-avatar">
+                  <img src="https://via.placeholder.com/32" alt="Rahul">
+                </div>
+                <div class="message-content">
+                  <div class="message-bubble">
+                    <p>Deal! When can I pick it up?</p>
+                  </div>
+                  <div class="message-info">
+                    <span class="message-time">10:40 AM</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="message-date-divider">
+                <span>2 hours ago</span>
+              </div>
+              
+              <div class="message received">
+                <div class="message-avatar">
+                  <img src="https://via.placeholder.com/32" alt="Rahul">
+                </div>
+                <div class="message-content">
+                  <div class="message-bubble">
+                    <p>Is the USB C Cable still available?</p>
+                  </div>
+                  <div class="message-info">
+                    <span class="message-time">12:45 PM</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="chat-input">
+              <div class="input-attachments">
+                <button class="btn btn-icon">
+                  <i class="fas fa-paperclip"></i>
+                </button>
+                <button class="btn btn-icon">
+                  <i class="fas fa-image"></i>
+                </button>
+              </div>
+              <div class="input-field">
+                <input type="text" id="message-input" placeholder="Type a message...">
+              </div>
+              <div class="input-actions">
+                <button class="btn btn-icon">
+                  <i class="fas fa-microphone"></i>
+                </button>
+                <button class="btn btn-icon btn-send">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>HMart</h3>
+        <p class="slogan">Your midnight craving, our responsibility</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Marketplace</h4>
+          <ul>
+            <li><a href="products.html">Browse Items</a></li>
+            <li><a href="sell.html">Sell an Item</a></li>
+            <li><a href="#">Categories</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="dashboard.html">My Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Safety Tips</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 HMart. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/messages.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Listings - HMart</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Header/Navigation -->
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <a href="index.html">HMart</a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Browse</a></li>
+        <li><a href="sell.html">Sell</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+    <div class="user-menu">
+      <div class="user-menu-toggle">
+        <img src="https://via.placeholder.com/32" alt="User" class="user-avatar" id="header-user-avatar">
+        <span class="user-name" id="header-user-name">John Doe</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="user-dropdown">
+        <ul>
+          <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+          <li><a href="profile.html"><i class="fas fa-user"></i> My Profile</a></li>
+          <li><a href="my-listings.html"><i class="fas fa-list"></i> My Listings</a></li>
+          <li><a href="messages.html"><i class="fas fa-envelope"></i> Messages</a></li>
+          <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+          <li class="divider"></li>
+          <li><a href="#" id="logout-button"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+  </div>
+</header>
+
+<!-- My Listings Section -->
+<section class="dashboard-section">
+  <div class="container">
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <div class="dashboard-sidebar">
+        <div class="user-profile-card">
+          <div class="user-avatar-container">
+            <img src="https://via.placeholder.com/100" alt="User" class="user-avatar-large" id="sidebar-user-avatar">
+            <div class="avatar-edit">
+              <label for="avatar-upload">
+                <i class="fas fa-camera"></i>
+              </label>
+              <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
+            </div>
+          </div>
+          <h3 class="user-name" id="sidebar-user-name">John Doe</h3>
+          <p class="user-hostel" id="user-hostel">KP-1, Room 302</p>
+          <div class="user-stats">
+            <div class="stat">
+              <span class="stat-value" id="listings-count">5</span>
+              <span class="stat-label">Listings</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="sales-count">12</span>
+              <span class="stat-label">Sales</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="rating-value">4.8</span>
+              <span class="stat-label">Rating</span>
+            </div>
+          </div>
+        </div>
+        
+        <nav class="dashboard-nav">
+          <ul>
+            <li>
+              <a href="dashboard.html">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="profile.html">
+                <i class="fas fa-user"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="my-listings.html">
+                <i class="fas fa-list"></i>
+                <span>My Listings</span>
+              </a>
+            </li>
+            <li>
+              <a href="orders.html">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Orders</span>
+                <span class="badge">3</span>
+              </a>
+            </li>
+            <li>
+              <a href="messages.html">
+                <i class="fas fa-envelope"></i>
+                <span>Messages</span>
+                <span class="badge">5</span>
+              </a>
+            </li>
+            <li>
+              <a href="favorites.html">
+                <i class="fas fa-heart"></i>
+                <span>Favorites</span>
+              </a>
+            </li>
+            <li>
+              <a href="settings.html">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="dashboard-content">
+        <div class="dashboard-header">
+          <h1>My Listings</h1>
+          <div class="quick-actions">
+            <a href="sell.html" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Add New Listing
+            </a>
+          </div>
+        </div>
+        
+        <!-- Listings Tabs -->
+        <div class="tabs-container">
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="active">Active (5)</button>
+            <button class="tab-btn" data-tab="sold">Sold (8)</button>
+            <button class="tab-btn" data-tab="draft">Drafts (2)</button>
+          </div>
+          
+          <!-- Search and Filter -->
+          <div class="listings-filter">
+            <div class="search-container">
+              <i class="fas fa-search search-icon"></i>
+              <input type="text" id="search-listings" placeholder="Search your listings...">
+            </div>
+            
+            <div class="filter-dropdown">
+              <button class="btn btn-outline btn-sm">
+                <i class="fas fa-filter"></i> Filter
+              </button>
+              <div class="filter-dropdown-content">
+                <div class="filter-group">
+                  <label for="category-filter">Category</label>
+                  <select id="category-filter">
+                    <option value="">All Categories</option>
+                    <option value="food">Food</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="beverages">Beverages</option>
+                    <option value="essentials">Essentials</option>
+                    <option value="stationery">Stationery</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                
+                <div class="filter-group">
+                  <label for="sort-filter">Sort By</label>
+                  <select id="sort-filter">
+                    <option value="recent">Most Recent</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="views">Most Views</option>
+                  </select>
+                </div>
+                
+                <button id="apply-filters" class="btn btn-primary btn-sm">Apply</button>
+                <button id="reset-filters" class="btn btn-outline btn-sm">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Active Listings Tab Content -->
+        <div class="tab-content active" id="active-tab">
+          <div class="listings-grid">
+            <div class="listing-card">
+              <div class="listing-image">
+                <img src="https://via.placeholder.com/300" alt="Maggi Noodles">
+                <div class="listing-badge">Active</div>
+              </div>
+              <div class="listing-details">
+                <h3 class="listing-title">Maggi Noodles Pack of 6</h3>
+                <p class="listing-price">₹120</p>
+                <div class="listing-meta">
+                  <span class="listing-views"><i class="fas fa-eye"></i> 24 views</span>
+                  <span class="listing-date">Listed 2 days ago</span>
+                </div>
+                <div class="listing-actions">
+                  <a href="#" class="btn btn-sm btn-outline">Edit</a>
+                  <a href="#" class="btn btn-sm btn-outline">Mark as Sold</a>
+                  <a href="#" class="btn btn-sm btn-outline btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="listing-card">
+              <div class="listing-image">
+                <img src="https://via.placeholder.com/300" alt="USB C Cable">
+                <div class="listing-badge">Active</div>
+              </div>
+              <div class="listing-details">
+                <h3 class="listing-title">USB C Cable 2m</h3>
+                <p class="listing-price">₹250</p>
+                <div class="listing-meta">
+                  <span class="listing-views"><i class="fas fa-eye"></i> 18 views</span>
+                  <span class="listing-date">Listed 3 days ago</span>
+                </div>
+                <div class="listing-actions">
+                  <a href="#" class="btn btn-sm btn-outline">Edit</a>
+                  <a href="#" class="btn btn-sm btn-outline">Mark as Sold</a>
+                  <a href="#" class="btn btn-sm btn-outline btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="listing-card">
+              <div class="listing-image">
+                <img src="https://via.placeholder.com/300" alt="Study Lamp">
+                <div class="listing-badge">Active</div>
+              </div>
+              <div class="listing-details">
+                <h3 class="listing-title">Study Lamp</h3>
+                <p class="listing-price">₹350</p>
+                <div class="listing-meta">
+                  <span class="listing-views"><i class="fas fa-eye"></i> 32 views</span>
+                  <span class="listing-date">Listed 5 days ago</span>
+                </div>
+                <div class="listing-actions">
+                  <a href="#" class="btn btn-sm btn-outline">Edit</a>
+                  <a href="#" class="btn btn-sm btn-outline">Mark as Sold</a>
+                  <a href="#" class="btn btn-sm btn-outline btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="listing-card">
+              <div class="listing-image">
+                <img src="https://via.placeholder.com/300" alt="Scientific Calculator">
+                <div class="listing-badge">Active</div>
+              </div>
+              <div class="listing-details">
+                <h3 class="listing-title">Scientific Calculator</h3>
+                <p class="listing-price">₹450</p>
+                <div class="listing-meta">
+                  <span class="listing-views"><i class="fas fa-eye"></i> 15 views</span>
+                  <span class="listing-date">Listed 1 week ago</span>
+                </div>
+                <div class="listing-actions">
+                  <a href="#" class="btn btn-sm btn-outline">Edit</a>
+                  <a href="#" class="btn btn-sm btn-outline">Mark as Sold</a>
+                  <a href="#" class="btn btn-sm btn-outline btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="listing-card">
+              <div class="listing-image">
+                <img src="https://via.placeholder.com/300" alt="Notebook Set">
+                <div class="listing-badge">Active</div>
+              </div>
+              <div class="listing-details">
+                <h3 class="listing-title">Notebook Set (5 pcs)</h3>
+                <p class="listing-price">₹180</p>
+                <div class="listing-meta">
+                  <span class="listing-views"><i class="fas fa-eye"></i> 10 views</span>
+                  <span class="listing-date">Listed 1 week ago</span>
+                </div>
+                <div class="listing-actions">
+                  <a href="#" class="btn btn-sm btn-outline">Edit</a>
+                  <a href="#" class="btn btn-sm btn-outline">Mark as Sold</a>
+                  <a href="#" class="btn btn-sm btn-outline btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Sold Listings Tab Content -->
+        <div class="tab-content" id="sold-tab" style="display: none;">
+          <div class="listings-grid">
+            <!-- Sold listings will be populated here -->
+            <div class="empty-state">
+              <i class="fas fa-box-open"></i>
+              <h3>No sold items yet</h3>
+              <p>Items you've sold will appear here</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Draft Listings Tab Content -->
+        <div class="tab-content" id="draft-tab" style="display: none;">
+          <div class="listings-grid">
+            <!-- Draft listings will be populated here -->
+            <div class="empty-state">
+              <i class="fas fa-edit"></i>
+              <h3>No draft listings</h3>
+              <p>Saved drafts will appear here</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>HMart</h3>
+        <p class="slogan">Your midnight craving, our responsibility</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4>Marketplace</h4>
+          <ul>
+            <li><a href="products.html">Browse Items</a></li>
+            <li><a href="sell.html">Sell an Item</a></li>
+            <li><a href="#">Categories</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="dashboard.html">My Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Safety Tips</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 HMart. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/my-listings.js"></script>
+</body>
+</html>
+
