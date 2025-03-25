@@ -1046,6 +1046,49 @@
     .chat-actions {
       align-self: flex-end;
     }
+    .user-menu {
+      position: static;
+    }
+  
+    .user-dropdown {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      width: 200px;
+    }
+  
+    .dashboard-container {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .dashboard-sidebar {
+      margin-bottom: 2rem;
+    }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background-color: white;
+      flex-direction: column;
+      padding: 1rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+  
+    .nav-links.active {
+      display: flex;
+    }
+  
+    .auth-buttons {
+      display: none;
+    }
+  
+    .user-menu {
+      margin-left: auto;
+    }
   }
   
   @media (max-width: 576px) {
@@ -1082,6 +1125,18 @@
       order: -1;
       width: 100%;
       margin-bottom: 0.5rem;
+    }
+    .dashboard-content {
+      padding: 1rem;
+    }
+  
+    .overview-cards {
+      grid-template-columns: 1fr;
+    }
+  
+    .products-grid,
+    .listings-grid {
+      grid-template-columns: 1fr;
     }
   }
   
@@ -1137,22 +1192,22 @@
   }
   
   /* Signup Progress */
-.signup-progress {
+  .signup-progress {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2rem;
-}
-
-.progress-step {
+  }
+  
+  .progress-step {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     z-index: 1;
-}
-
-.step-number {
+  }
+  
+  .step-number {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -1163,31 +1218,67 @@
     justify-content: center;
     font-weight: 600;
     font-size: 0.875rem;
-}
-
-.step-label {
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .step-label {
+    font-size: 0.75rem;
     color: var(--text-light);
-}
-
-.progress-line {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 2px;
-    background-color: var(--border-color);
-    transform: translateY(-50%);
-    z-index: -1;
-}
-
-.step.completed .step-number {
+  }
+  
+  .progress-step.active .step-number {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     color: white;
-}
-
-.step.completed .step-label {
-    color: var(--primary-color);
-}
+  }
+  
+  .progress-step.completed .step-number {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    color: white;
+  }
+  
+  .progress-line {
+    flex: 1;
+    height: 2px;
+    background-color: var(--border-color);
+    margin: 0 0.5rem;
+  }
+  
+  /* Profile Picture Upload */
+  .profile-upload {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--background-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .profile-preview i {
+    font-size: 3rem;
+    color: var(--text-light);
+  }
+  
+  .profile-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .upload-button {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  

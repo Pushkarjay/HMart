@@ -123,9 +123,13 @@
                 // Store the token in localStorage
                 localStorage.setItem('token', data.token);
 
-                // Redirect to the home page
-                window.location.href = 'index.html';
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } else if (data.error === 'User not registered') {
+                // Redirect to signup page if not registered
+                window.location.href = 'signup.html';
             } else {
+                // Show error message if login failed
                 document.getElementById('error-message').style.display = 'block';
                 document.getElementById('error-text').textContent = `Login failed: ${data.error}`;
             }

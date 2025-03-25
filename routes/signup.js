@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       // Redirect to login page after successful signup
       setTimeout(() => {
-        window.location.href = "login.html"
+        window.location.href = "dashboard.html"
       }, 2000)
     })
   
@@ -284,19 +284,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   
     function updateProgressStep(step) {
-      progressSteps.forEach((progressStep) => {
-        const stepNumber = Number.parseInt(progressStep.getAttribute("data-step"))
-  
-        if (stepNumber === step) {
-          progressStep.classList.add("active")
-        } else if (stepNumber < step) {
+      progressSteps.forEach((progressStep, index) => {
+        if (index < step) {
           progressStep.classList.add("completed")
-          progressStep.classList.remove("active")
         } else {
-          progressStep.classList.remove("active", "completed")
+          progressStep.classList.remove("completed")
         }
       })
     }
   })
-  
   
