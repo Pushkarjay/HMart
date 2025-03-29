@@ -20,11 +20,11 @@
  ┃ ┃ ┃ ┣ 📜login.js
  ┃ ┃ ┃ ┗ 📜signup.js
  ┃ ┃ ┣ 📂dashboard
- ┃ ┃ ┃ ┣ 📜dashboard.js
- ┃ ┃ ┃ ┗ 📜main.js
+ ┃ ┃ ┃ ┗ 📜dashboard.js
  ┃ ┃ ┣ 📂listings
  ┃ ┃ ┃ ┣ 📜my-listings.js
- ┃ ┃ ┃ ┗ 📜products.js
+ ┃ ┃ ┃ ┣ 📜products.js
+ ┃ ┃ ┃ ┗ 📜sell.js
  ┃ ┃ ┣ 📂messages
  ┃ ┃ ┃ ┗ 📜messages.js
  ┃ ┃ ┣ 📂profile
@@ -32,7 +32,8 @@
  ┃ ┃ ┣ 📂utils
  ┃ ┃ ┃ ┣ 📜api-client.js
  ┃ ┃ ┃ ┗ 📜ui-helpers.js
- ┃ ┃ ┗ 📜utils.js
+ ┃ ┃ ┣ 📜main.js
+ ┃ ┃ ┗ 📜product-detail.js
  ┃ ┣ 📜about.html
  ┃ ┣ 📜dashboard.html
  ┃ ┣ 📜index.html
@@ -41,9 +42,11 @@
  ┃ ┣ 📜my-listings.html
  ┃ ┣ 📜product-detail.html
  ┃ ┣ 📜products.html
- ┃ ┣ 📜profile.html
+ ┃ ┣    profile.html
  ┃ ┣ 📜sell.html
  ┃ ┗ 📜signup.html
+ ┣ 📂routes
+ ┃ ┗ 📜products.js
  ┣ 📂utils
  ┃ ┣ 📜apiFeatures.js
  ┃ ┣ 📜appError.js
