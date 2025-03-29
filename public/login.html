@@ -4,34 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - HMart</title>
-  <link rel="stylesheet" href="/css/styles.css"> <!-- Fixed path -->
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/user-portal.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="header">
-    <div class="container">
-      <div class="logo">
-        <a href="/index.html">HMart</a>
-      </div>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="/index.html">Home</a></li>
-          <li><a href="/products.html">Browse</a></li>
-          <li><a href="/sell.html">Sell</a></li>
-          <li><a href="/about.html">About</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons">
-        <a href="/login.html" class="btn btn-outline active">Login</a>
-        <a href="/signup.html" class="btn btn-primary">Sign Up</a>
-      </div>
-      <div class="menu-toggle">
-        <i class="fas fa-bars"></i>
-      </div>
-    </div>
-  </header>
-
   <section class="auth-section">
     <div class="container">
       <div class="auth-container">
@@ -40,45 +18,46 @@
           <p>Login to access your account</p>
         </div>
 
-        <div id="error-message" class="error-message" style="display: none;">
-          <i class="fas fa-exclamation-circle"></i>
-          <span id="error-text">Error message will appear here</span>
+        <div id="notification" class="notification" style="display: none;">
+          <i id="notification-icon" class="fas"></i>
+          <span id="notification-text"></span>
+          <button class="notification-close"><i class="fas fa-times"></i></button>
         </div>
 
-        <form id="login-form" class="auth-form">
+        <form id="login-form" class="auth-form profile-form">
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" required>
+            <input type="email" id="email" required aria-required="true" placeholder="your@email.com">
           </div>
 
           <div class="form-group">
             <label for="password">Password</label>
             <div class="password-input">
-              <input type="password" id="password" required>
-              <button type="button" class="password-toggle">
+              <input type="password" id="password" required aria-required="true" placeholder="Enter your password">
+              <button type="button" class="password-toggle" aria-label="Toggle password visibility">
                 <i class="far fa-eye"></i>
               </button>
             </div>
           </div>
 
           <div class="form-options">
-            <div class="remember-me">
+            <div class="form-checkbox">
               <input type="checkbox" id="remember-me">
               <label for="remember-me">Remember me</label>
             </div>
             <a href="/forgot-password.html" class="forgot-password">Forgot password?</a>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-block">Login</button>
+          <button type="submit" class="btn btn-primary btn-block" id="login-btn">Login</button>
 
           <div class="social-login">
             <p>Or login with</p>
             <div class="social-buttons">
-              <button type="button" class="btn btn-social btn-google">
-                <i class="fab fa-google"></i> Google
+              <button type="button" class="btn btn-social btn-google" disabled>
+                <i class="fab fa-google"></i> Google (Coming Soon)
               </button>
-              <button type="button" class="btn btn-social btn-facebook">
-                <i class="fab fa-facebook-f"></i> Facebook
+              <button type="button" class="btn btn-social btn-facebook" disabled>
+                <i class="fab fa-facebook-f"></i> Facebook (Coming Soon)
               </button>
             </div>
           </div>
@@ -92,8 +71,8 @@
   </section>
 
   <footer class="footer">
-    <div class "container">
-      <p>© 2025 HMart. All rights reserved.</p> <!-- Updated year -->
+    <div class="container">
+      <p>© 2025 HMart. All rights reserved.</p>
     </div>
   </footer>
 
@@ -101,48 +80,94 @@
   <script src="/js/auth/auth.js"></script>
   <script src="/js/main.js"></script>
   <script>
-    document.getElementById('login-form').addEventListener('submit', async (event) => {
-      event.preventDefault();
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("login-form");
+      const loginBtn = document.getElementById("login-btn");
 
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      try {
-        const response = await fetch('/api/login', { // Fixed endpoint
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password }),
-        });
-
-        const data = await response.json();
-
-        if (data.success && data.token) { // Check for success and token
-          setToken(data.token); // Use utils.js function
-          window.location.href = '/dashboard.html';
-        } else {
-          document.getElementById('error-message').style.display = 'block';
-          document.getElementById('error-text').textContent = data.message || 'Login failed';
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        document.getElementById('error-message').style.display = 'block';
-        document.getElementById('error-text').textContent = 'Login failed: An unexpected error occurred.';
+      // Pre-fill email if "Remember me" was checked
+      const rememberedEmail = localStorage.getItem("hmart_email");
+      if (rememberedEmail && localStorage.getItem("hmart_remember_me") === "true") {
+        document.getElementById("email").value = rememberedEmail;
+        document.getElementById("remember-me").checked = true;
       }
-    });
 
-    document.querySelectorAll(".password-toggle").forEach(button => {
-      button.addEventListener("click", () => {
-        const input = button.previousElementSibling;
-        if (input.type === "password") {
-          input.type = "text";
-          button.innerHTML = '<i class="far fa-eye-slash"></i>';
-        } else {
-          input.type = "password";
-          button.innerHTML = '<i class="far fa-eye"></i>';
+      loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const rememberMe = document.getElementById("remember-me").checked;
+
+        if (!validateEmail(email)) {
+          showNotification("Please enter a valid email address", "error");
+          return;
+        }
+        if (!password) {
+          showNotification("Please enter your password", "error");
+          return;
+        }
+
+        loginBtn.disabled = true;
+        loginBtn.textContent = "Logging in...";
+
+        try {
+          const result = await loginUser(email, password); // Use auth.js function
+          if (result.success) {
+            if (rememberMe) {
+              localStorage.setItem("hmart_email", email);
+              localStorage.setItem("hmart_remember_me", "true");
+            } else {
+              localStorage.removeItem("hmart_email");
+              localStorage.removeItem("hmart_remember_me");
+            }
+            showNotification("Login successful! Redirecting...", "success");
+            setTimeout(() => window.location.href = "/dashboard.html", 1500);
+          }
+        } catch (error) {
+          showNotification(`Login failed: ${error.message || "Please try again."}`, "error");
+          loginBtn.disabled = false;
+          loginBtn.textContent = "Login";
         }
       });
+
+      document.querySelectorAll(".password-toggle").forEach(button => {
+        button.addEventListener("click", () => {
+          const input = button.previousElementSibling;
+          const icon = button.querySelector("i");
+          if (input.type === "password") {
+            input.type = "text";
+            icon.classList.replace("fa-eye", "fa-eye-slash");
+          } else {
+            input.type = "password";
+            icon.classList.replace("fa-eye-slash", "fa-eye");
+          }
+        });
+      });
+
+      function validateEmail(email) {
+        return /^\S+@\S+\.\S+$/.test(email);
+      }
+
+      function showNotification(message, type) {
+        const notification = document.getElementById("notification");
+        const notificationText = document.getElementById("notification-text");
+        const notificationIcon = document.getElementById("notification-icon");
+
+        notification.className = `notification notification-${type}`;
+        notificationIcon.className = `fas fa-${type === "success" ? "check-circle" : "exclamation-circle"}`;
+        notificationText.textContent = message;
+        notification.style.display = "block";
+        setTimeout(() => notification.classList.add("show"), 10);
+        setTimeout(() => {
+          notification.classList.remove("show");
+          setTimeout(() => notification.style.display = "none", 300);
+        }, 5000);
+
+        const closeBtn = notification.querySelector(".notification-close");
+        closeBtn.addEventListener("click", () => {
+          notification.classList.remove("show");
+          setTimeout(() => notification.style.display = "none", 300);
+        });
+      }
     });
   </script>
 </body>

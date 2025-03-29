@@ -8,13 +8,35 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  email         String   @unique
-  password      String
-  name          String
-  hostel        String?
-  roomNumber    String?
-  whatsappNumber String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String?
+  hostel    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  role      String    @default("USER")
+  room      String?
+  Product   Product[]
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  Product Product[] @relation("ProductCategories")
+}
+
+model Product {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String
+  price       Float
+  hostel      String
+  sellerId    Int
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime
+  images      Json
+  status      String     @default("ACTIVE")
+  User        User       @relation(fields: [sellerId], references: [id])
+  Category    Category[] @relation("ProductCategories")
 }

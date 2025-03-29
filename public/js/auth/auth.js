@@ -1,97 +1,71 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const loginForm = document.getElementById("login-form");
-  const signupForm = document.getElementById("signup-form");
+// E:\HMart\public\js\auth\auth.js
+function setToken(token) {
+  localStorage.setItem("hmart_token", token);
+}
 
-  if (loginForm) {
-    loginForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+function getToken() {
+  return localStorage.getItem("hmart_token");
+}
 
-      try {
-        const response = await fetch("/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
-        const data = await response.json();
-        if (data.success && data.token) {
-          setToken(data.token);
-          redirect("/dashboard.html");
-        } else {
-          document.getElementById("error-message").style.display = "block";
-          document.getElementById("error-text").textContent = data.message || "Login failed";
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        document.getElementById("error-message").style.display = "block";
-        document.getElementById("error-text").textContent = "Login failed: An unexpected error occurred.";
-      }
+function removeToken() {
+  localStorage.removeItem("hmart_token");
+}
+
+async function loginUser(email, password) {
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
     });
 
-    document.querySelectorAll(".password-toggle").forEach(button => {
-      button.addEventListener("click", () => {
-        const input = button.previousElementSibling;
-        if (input.type === "password") {
-          input.type = "text";
-          button.innerHTML = '<i class="far fa-eye-slash"></i>';
-        } else {
-          input.type = "password";
-          button.innerHTML = '<i class="far fa-eye"></i>';
-        }
-      });
-    });
+    console.log("Login response status:", response.status); // Debug
+    const data = await response.json();
+    console.log("Login response data:", data); // Debug
+
+    if (response.ok && data.success && data.token) {
+      setToken(data.token);
+      return { success: true, token: data.token };
+    } else {
+      throw new Error(data.message || "Login failed");
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    throw error;
+  }
+}
+
+async function signupUser(fullName, email, hostel, roomNumber, whatsappNumber, password, confirmPassword) {
+  if (password !== confirmPassword) {
+    throw new Error("Passwords do not match");
   }
 
-  if (signupForm) {
-    signupForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const fullName = document.getElementById("full-name").value;
-      const email = document.getElementById("email").value;
-      const hostel = document.getElementById("hostel-select").value;
-      const roomNumber = document.getElementById("room-number").value;
-      const whatsappNumber = document.getElementById("whatsapp-number").value;
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirm-password").value;
-
-      if (password !== confirmPassword) {
-        document.getElementById("error-message").style.display = "block";
-        document.getElementById("error-text").textContent = "Passwords do not match";
-        return;
-      }
-
-      try {
-        const response = await fetch("/api/signup", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, name: fullName, hostel, roomNumber, whatsappNumber }),
-        });
-        const data = await response.json();
-        if (data.success && data.token) {
-          setToken(data.token);
-          redirect("/dashboard.html");
-        } else {
-          document.getElementById("error-message").style.display = "block";
-          document.getElementById("error-text").textContent = data.message || "Signup failed";
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        document.getElementById("error-message").style.display = "block";
-        document.getElementById("error-text").textContent = "Signup failed: An unexpected error occurred.";
-      }
+  try {
+    const response = await fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, name: fullName, hostel, roomNumber, whatsappNumber }),
     });
 
-    document.querySelectorAll(".password-toggle").forEach(button => {
-      button.addEventListener("click", () => {
-        const input = button.previousElementSibling;
-        if (input.type === "password") {
-          input.type = "text";
-          button.innerHTML = '<i class="far fa-eye-slash"></i>';
-        } else {
-          input.type = "password";
-          button.innerHTML = '<i class="far fa-eye"></i>';
-        }
-      });
-    });
+    console.log("Signup response status:", response.status); // Debug
+    const data = await response.json();
+    console.log("Signup response data:", data); // Debug
+
+    if (response.ok && data.success && data.token) {
+      setToken(data.token);
+      return { success: true, token: data.token };
+    } else {
+      throw new Error(data.message || "Signup failed");
+    }
+  } catch (error) {
+    console.error("Signup error:", error);
+    throw error;
   }
-});
+}
+
+// Export for global use in inline scripts
+window.setToken = setToken;
+window.getToken = getToken;
+window.removeToken = removeToken;
+window.loginUser = loginUser;
+window.signupUser = signupUser;
