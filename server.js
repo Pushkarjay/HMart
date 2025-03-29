@@ -1,103 +1,82 @@
-require('dotenv').config();
-
-// Ensure required env variables
-const requiredEnv = ['DATABASE_URL', 'JWT_SECRET'];
-const missingEnv = requiredEnv.filter(key => !process.env[key]);
-if (missingEnv.length > 0) {
-  console.error(`Missing required environment variables: ${missingEnv.join(', ')}`);
-  process.exit(1);
-}
-
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
-const rateLimit = require('express-rate-limit');
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const path = require("path");
+const { PrismaClient } = require("@prisma/client");
+require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const prisma = new PrismaClient();
+const PORT = process.env.PORT || 54321;
+const JWT_SECRET = process.env.JWT_SECRET;
 
-// Enhanced security middleware
-app.use(helmet());
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-}));
-app.use(cookieParser());
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
-// Static files
-app.use(express.static('public'));
-app.use('/uploads', express.static('uploads'));
-
-// Enhanced rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  message: 'Too many requests from this IP, please try again later'
-});
-app.use(limiter);
-
-// Routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/products', require('./routes/productRoutes'));
-
-// Health check
-app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development',
-    version: process.env.npm_package_version
-  });
-});
-
-// Welcome route
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'API Service Running',
-    documentation: process.env.API_DOCS_URL || '/api-docs'
-  });
-});
-
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ 
-    status: 'error', 
-    message: `Endpoint not found: ${req.originalUrl}` 
-  });
-});
-
-// Global error handler (from second version)
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  const statusCode = err.statusCode || 500;
-  res.status(statusCode).json({
-    status: 'error',
-    message: err.message || 'Internal Server Error',
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
-  });
-});
-
-const server = app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-});
-
-// Graceful shutdown
-['SIGTERM', 'SIGINT'].forEach(signal => {
-  process.on(signal, () => {
-    console.log(`${signal} received. Shutting down gracefully`);
-    server.close(() => {
-      console.log('Process terminated');
-      process.exit(0);
+// Login endpoint
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await prisma.user.findUnique({ where: { email } });
+    if (!user || user.password !== password) {
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
+    }
+    const token = jwt.sign({ id: user.id, email: user.email, name: user.name }, JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
     });
-  });
+    res.json({ success: true, token });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
 });
 
-module.exports = server;
+// Signup endpoint
+app.post("/api/signup", async (req, res) => {
+  const { email, password, name, hostel, roomNumber, whatsappNumber } = req.body;
+  try {
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: "Email already exists" });
+    }
+    const newUser = await prisma.user.create({
+      data: { email, password, name, hostel, roomNumber, whatsappNumber },
+    });
+    const token = jwt.sign({ id: newUser.id, email: newUser.email, name: newUser.name }, JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRES_IN,
+    });
+    res.json({ success: true, token });
+  } catch (error) {
+    console.error("Signup error:", error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+});
+
+// User data endpoint
+app.get("/api/user", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    return res.status(401).json({ success: false, message: "No token provided" });
+  }
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+    res.json({ success: true, user: { id: user.id, email: user.email, name: user.name, hostel: user.hostel, roomNumber: user.roomNumber, whatsappNumber: user.whatsappNumber } });
+  } catch (error) {
+    console.error("User fetch error:", error);
+    res.status(401).json({ success: false, message: "Invalid token" });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+});
+
+process.on("SIGINT", async () => {
+  await prisma.$disconnect();
+  console.log("SIGINT received. Shutting down gracefully");
+  process.exit(0);
+});

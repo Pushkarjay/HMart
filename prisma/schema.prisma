@@ -1,34 +1,20 @@
-datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String
-  name      String?
-  hostel    String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  products  Product[]
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model Product {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  price       Float
-  category    String
-  hostel      String
-  imageUrl    String?
-  sellerId    Int
-  seller      User     @relation(fields: [sellerId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  password      String
+  name          String
+  hostel        String?
+  roomNumber    String?
+  whatsappNumber String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

@@ -1,54 +1,97 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { PrismaClient } = require('@prisma/client');
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("login-form");
+  const signupForm = document.getElementById("signup-form");
 
-const router = express.Router();
-const prisma = new PrismaClient();
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-router.post('/signup', async (req, res) => {
-  try {
-    const { email, password, name } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await prisma.user.create({
-      data: { email, password: hashedPassword, name },
+      try {
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await response.json();
+        if (data.success && data.token) {
+          setToken(data.token);
+          redirect("/dashboard.html");
+        } else {
+          document.getElementById("error-message").style.display = "block";
+          document.getElementById("error-text").textContent = data.message || "Login failed";
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("error-message").style.display = "block";
+        document.getElementById("error-text").textContent = "Login failed: An unexpected error occurred.";
+      }
     });
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(201).json({
-      success: true,
-      message: 'Signup successful',
-      user: { id: user.id, email: user.email, name: user.name },
-      token,
+    document.querySelectorAll(".password-toggle").forEach(button => {
+      button.addEventListener("click", () => {
+        const input = button.previousElementSibling;
+        if (input.type === "password") {
+          input.type = "text";
+          button.innerHTML = '<i class="far fa-eye-slash"></i>';
+        } else {
+          input.type = "password";
+          button.innerHTML = '<i class="far fa-eye"></i>';
+        }
+      });
     });
-  } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
+  }
+
+  if (signupForm) {
+    signupForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const fullName = document.getElementById("full-name").value;
+      const email = document.getElementById("email").value;
+      const hostel = document.getElementById("hostel-select").value;
+      const roomNumber = document.getElementById("room-number").value;
+      const whatsappNumber = document.getElementById("whatsapp-number").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+
+      if (password !== confirmPassword) {
+        document.getElementById("error-message").style.display = "block";
+        document.getElementById("error-text").textContent = "Passwords do not match";
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password, name: fullName, hostel, roomNumber, whatsappNumber }),
+        });
+        const data = await response.json();
+        if (data.success && data.token) {
+          setToken(data.token);
+          redirect("/dashboard.html");
+        } else {
+          document.getElementById("error-message").style.display = "block";
+          document.getElementById("error-text").textContent = data.message || "Signup failed";
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("error-message").style.display = "block";
+        document.getElementById("error-text").textContent = "Signup failed: An unexpected error occurred.";
+      }
+    });
+
+    document.querySelectorAll(".password-toggle").forEach(button => {
+      button.addEventListener("click", () => {
+        const input = button.previousElementSibling;
+        if (input.type === "password") {
+          input.type = "text";
+          button.innerHTML = '<i class="far fa-eye-slash"></i>';
+        } else {
+          input.type = "password";
+          button.innerHTML = '<i class="far fa-eye"></i>';
+        }
+      });
+    });
   }
 });
-
-router.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const user = await prisma.user.findUnique({ where: { email } });
-
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({ success: false, error: 'Invalid credentials' });
-    }
-
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.json({
-      success: true,
-      message: 'Login successful',
-      user: { id: user.id, email: user.email, name: user.name },
-      token,
-    });
-  } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
-  }
-});
-
-module.exports = router;

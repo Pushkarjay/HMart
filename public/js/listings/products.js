@@ -1,147 +1,99 @@
-const express = require('express');
-const { PrismaClient } = require('@prisma/client');
-const authMiddleware = require('../middleware/auth');
-const multer = require('multer');
-const path = require('path');
-
-const router = express.Router();
-const prisma = new PrismaClient();
-
-// Configure Multer for file upload
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({ storage: storage });
-
-// Get all products with pagination and filters
-router.get('/', async (req, res) => {
-  try {
-    const { page = 1, limit = 10, category, hostel } = req.query;
-    const skip = (page - 1) * limit;
-
-    const whereClause = {};
-    if (category) whereClause.category = category;
-    if (hostel) whereClause.hostel = hostel;
-
-    const products = await prisma.product.findMany({
-      where: whereClause,
-      skip: parseInt(skip),
-      take: parseInt(limit),
-      orderBy: { createdAt: 'desc' },
-      include: { seller: { select: { id: true, name: true } } }
-    });
-
-    const total = await prisma.product.count({ where: whereClause });
-
-    res.json({
-      products,
-      currentPage: parseInt(page),
-      totalPages: Math.ceil(total / limit),
-      total,
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Get single product by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await prisma.product.findUnique({
-      where: { id: parseInt(id) },
-      include: { seller: { select: { id: true, name: true, hostel: true } } },
-    });
-
-    if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+document.addEventListener("DOMContentLoaded", async () => {
+    const token = getToken();
+    const productsGrid = document.getElementById("products-grid");
+    const searchInput = document.getElementById("search-products");
+    const filterButton = document.querySelector(".filter-dropdown button");
+    const filterDropdownContent = document.querySelector(".filter-dropdown-content");
+    const applyFiltersButton = document.getElementById("apply-filters");
+    const resetFiltersButton = document.getElementById("reset-filters");
+  
+    // Load initial products
+    await loadProducts();
+  
+    // Search functionality
+    if (searchInput) {
+      searchInput.addEventListener("input", async () => {
+        const query = searchInput.value.trim();
+        await loadProducts(query ? `/api/products/search?query=${encodeURIComponent(query)}` : "/api/products");
+      });
     }
-
-    res.json(product);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Search products
-router.get('/search', async (req, res) => {
-  try {
-    const { query, page = 1, limit = 10 } = req.query;
-    const skip = (page - 1) * limit;
-
-    const products = await prisma.product.findMany({
-      where: {
-        OR: [
-          { title: { contains: query, mode: 'insensitive' } },
-          { description: { contains: query, mode: 'insensitive' } },
-        ],
-      },
-      skip: parseInt(skip),
-      take: parseInt(limit),
-      orderBy: { createdAt: 'desc' },
-      include: { seller: { select: { id: true, name: true } } }
-    });
-
-    const total = await prisma.product.count({
-      where: {
-        OR: [
-          { title: { contains: query, mode: 'insensitive' } },
-          { description: { contains: query, mode: 'insensitive' } },
-        ],
-      },
-    });
-
-    res.json({
-      products,
-      currentPage: parseInt(page),
-      totalPages: Math.ceil(total / limit),
-      total,
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Image upload endpoint
-router.post('/upload-image', authMiddleware, upload.single('image'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded' });
-  }
-  res.json({ imageUrl: `/uploads/${req.file.filename}` });
-});
-
-// Create new product (protected route)
-router.post('/', authMiddleware, async (req, res) => {
-  try {
-    const { title, description, price, imageUrl, category, hostel } = req.body;
-    
-    if (!title || !price) {
-      return res.status(400).json({ error: 'Title and price are required' });
+  
+    // Filter dropdown toggle
+    if (filterButton && filterDropdownContent) {
+      filterButton.addEventListener("click", () => {
+        filterDropdownContent.classList.toggle("show");
+      });
+  
+      document.addEventListener("click", (e) => {
+        if (!filterButton.contains(e.target) && !filterDropdownContent.contains(e.target)) {
+          filterDropdownContent.classList.remove("show");
+        }
+      });
     }
-
-    const product = await prisma.product.create({
-      data: {
-        title,
-        description,
-        price: parseFloat(price),
-        imageUrl,
-        category,
-        hostel,
-        sellerId: req.userId,
-      },
-    });
-
-    res.status(201).json(product);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-module.exports = router;
+  
+    // Apply filters
+    if (applyFiltersButton) {
+      applyFiltersButton.addEventListener("click", async () => {
+        const category = document.getElementById("category-filter").value;
+        const hostel = document.getElementById("hostel-filter").value;
+        let url = "/api/products";
+        const params = new URLSearchParams();
+        if (category) params.append("category", category);
+        if (hostel) params.append("hostel", hostel);
+        if (params.toString()) url += `?${params.toString()}`;
+        await loadProducts(url);
+        filterDropdownContent.classList.remove("show");
+      });
+    }
+  
+    // Reset filters
+    if (resetFiltersButton) {
+      resetFiltersButton.addEventListener("click", async () => {
+        document.getElementById("category-filter").value = "";
+        document.getElementById("hostel-filter").value = "";
+        searchInput.value = "";
+        await loadProducts();
+        filterDropdownContent.classList.remove("show");
+      });
+    }
+  
+    async function loadProducts(url = "/api/products") {
+      try {
+        const response = await fetch(url, {
+          headers: { "Authorization": `Bearer ${token}` },
+        });
+        const data = await response.json();
+  
+        if (!response.ok) throw new Error(data.error || "Failed to load products");
+  
+        productsGrid.innerHTML = "";
+        if (data.products.length === 0) {
+          productsGrid.innerHTML = `
+            <div class="empty-state">
+              <i class="fas fa-box-open"></i>
+              <h3>No products found</h3>
+              <p>Try adjusting your search or filters</p>
+            </div>
+          `;
+          return;
+        }
+  
+        data.products.forEach((product) => {
+          const card = document.createElement("div");
+          card.className = "product-card";
+          card.innerHTML = `
+            <img src="${product.imageUrl || 'https://via.placeholder.com/150'}" alt="${product.title}">
+            <div class="product-info">
+              <h3 class="product-title">${product.title}</h3>
+              <p class="product-price">₹${product.price}</p>
+              <p class="product-seller">Seller: ${product.seller.name}</p>
+              <a href="/product-detail.html?id=${product.id}" class="btn btn-primary">View Details</a>
+            </div>
+          `;
+          productsGrid.appendChild(card);
+        });
+      } catch (error) {
+        showNotification(`Error: ${error.message}`, "error");
+      }
+    }
+  });

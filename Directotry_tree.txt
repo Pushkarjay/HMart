@@ -1,0 +1,59 @@
+📦HMart
+ ┣ 📂config
+ ┃ ┣ 📜db.js
+ ┃ ┗ 📜passport.js
+ ┣ 📂node_modules
+ ┣ 📂prisma
+ ┃ ┣ 📂migrations
+ ┃ ┃ ┣ 📂20250324201242_hmart
+ ┃ ┃ ┃ ┗ 📜migration.sql
+ ┃ ┃ ┗ 📜migration_lock.toml
+ ┃ ┣ 📜schema.prisma
+ ┃ ┗ 📜seed.js
+ ┣ 📂public
+ ┃ ┣ 📂css
+ ┃ ┃ ┣ 📜styles.css
+ ┃ ┃ ┗ 📜user-portal.css
+ ┃ ┣ 📂js
+ ┃ ┃ ┣ 📂auth
+ ┃ ┃ ┃ ┣ 📜auth.js
+ ┃ ┃ ┃ ┣ 📜login.js
+ ┃ ┃ ┃ ┗ 📜signup.js
+ ┃ ┃ ┣ 📂dashboard
+ ┃ ┃ ┃ ┣ 📜dashboard.js
+ ┃ ┃ ┃ ┗ 📜main.js
+ ┃ ┃ ┣ 📂listings
+ ┃ ┃ ┃ ┣ 📜my-listings.js
+ ┃ ┃ ┃ ┗ 📜products.js
+ ┃ ┃ ┣ 📂messages
+ ┃ ┃ ┃ ┗ 📜messages.js
+ ┃ ┃ ┣ 📂profile
+ ┃ ┃ ┃ ┗ 📜profile.js
+ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┣ 📜api-client.js
+ ┃ ┃ ┃ ┗ 📜ui-helpers.js
+ ┃ ┃ ┗ 📜utils.js
+ ┃ ┣ 📜about.html
+ ┃ ┣ 📜dashboard.html
+ ┃ ┣ 📜index.html
+ ┃ ┣ 📜login.html
+ ┃ ┣ 📜messages.html
+ ┃ ┣ 📜my-listings.html
+ ┃ ┣ 📜product-detail.html
+ ┃ ┣ 📜products.html
+ ┃ ┣ 📜profile.html
+ ┃ ┣ 📜sell.html
+ ┃ ┗ 📜signup.html
+ ┣ 📂utils
+ ┃ ┣ 📜apiFeatures.js
+ ┃ ┣ 📜appError.js
+ ┃ ┣ 📜jwt.js
+ ┃ ┗ 📜logger.js
+ ┣ 📜.env
+ ┣ 📜.gitattributes
+ ┣ 📜.gitignore
+ ┣ 📜Directotry_tree.txt
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜README.md
+ ┗ 📜server.js

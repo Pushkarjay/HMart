@@ -4,29 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up - HMart</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css"> <!-- Fixed path -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- Header/Navigation -->
   <header class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.html">HMart</a>
+        <a href="/index.html">HMart</a>
       </div>
       <nav>
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="products.html">Browse</a></li>
-          <li><a href="sell.html">Sell</a></li>
-          <li><a href="about.html">About</a></li>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/products.html">Browse</a></li>
+          <li><a href="/sell.html">Sell</a></li>
+          <li><a href="/about.html">About</a></li>
         </ul>
       </nav>
       <div class="auth-buttons">
-        <a href="login.html" class="btn btn-outline">Login</a>
-        <a href="signup.html" class="btn btn-primary active">Sign Up</a>
+        <a href="/login.html" class="btn btn-outline">Login</a>
+        <a href="/signup.html" class="btn btn-primary active">Sign Up</a>
       </div>
       <div class="menu-toggle">
         <i class="fas fa-bars"></i>
@@ -34,7 +32,6 @@
     </div>
   </header>
 
-  <!-- Signup Section -->
   <section class="auth-section">
     <div class="container">
       <div class="auth-container">
@@ -118,19 +115,71 @@
         </form>
 
         <div class="auth-footer">
-          <p>Already have an account? <a href="login.html">Login</a></p>
+          <p>Already have an account? <a href="/login.html">Login</a></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2023 HMart. All rights reserved.</p>
+      <p>© 2025 HMart. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="signup.js"></script>  <!-- Link to external JS file -->
+  <script src="/js/utils.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/auth/auth.js"></script>
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const fullName = document.getElementById('full-name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (password !== confirmPassword) {
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('error-text').textContent = 'Passwords do not match';
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }), // Only send required fields for now
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.token) {
+          setToken(data.token);
+          window.location.href = '/dashboard.html';
+        } else {
+          document.getElementById('error-message').style.display = 'block';
+          document.getElementById('error-text').textContent = data.message || 'Signup failed';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('error-text').textContent = 'Signup failed: An unexpected error occurred.';
+      }
+    });
+
+    document.querySelectorAll(".password-toggle").forEach(button => {
+      button.addEventListener("click", () => {
+        const input = button.previousElementSibling;
+        if (input.type === "password") {
+          input.type = "text";
+          button.innerHTML = '<i class="far fa-eye-slash"></i>';
+        } else {
+          input.type = "password";
+          button.innerHTML = '<i class="far fa-eye"></i>';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
