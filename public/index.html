@@ -11,28 +11,36 @@
 </head>
 <body>
   <!-- Header/Navigation -->
-  <header class="header">
+<header class="header">
     <div class="container">
-      <div class="logo">
-        <a href="index.html">HMart</a>
-      </div>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="products.html">Browse</a></li>
-          <li><a href="sell.html" id="sell-link">Sell</a></li>
-          <li><a href="about.html">About</a></li>
-        </ul>
-      </nav>
-      <div class="auth-buttons" id="auth-buttons">
-        <a href="login.html" class="btn btn-outline">Login</a>
-        <a href="signup.html" class="btn btn-primary">Sign Up</a>
-      </div>
-      <div class="menu-toggle">
-        <i class="fas fa-bars"></i>
-      </div>
+        <!-- Logo -->
+        <div class="logo">
+            <a href="index.html">HMart</a>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="products.html">Browse</a></li>
+                <li><a href="sell.html">Sell</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </nav>
+
+        <!-- Authentication Buttons -->
+        <div class="auth-buttons" id="auth-buttons">
+            <a href="login.html" class="btn btn-outline">Login</a>
+            <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
     </div>
-  </header>
+</header>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -125,9 +133,57 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2023 HMart. All rights reserved.</p>
+        <div class="footer-grid">
+            <!-- Row 1 -->
+            <div class="footer-item">
+                <h2>Contact Delpoer</h2>
+                <p>Pushkarjay Ajay</p>
+            </div>
+            <div class="footer-item">
+                <h2>Other Info</h2>
+                <p>Available for collaboration and inquiries.</p>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="footer-item">
+                <h2>Contact</h2>
+                <p><i class="fas fa-phone"></i> <a href="tel:+918210164935">+91-8210164935</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:pushkarjay.ajay1@gmail.com">pushkarjay.ajay1@gmail.com</a></p>
+            </div>
+            <div class="footer-item">
+                <h2>Social Links</h2>
+                <p><i class="fab fa-linkedin"></i> <a href="https://linkedin.com/in/Pushkarjay" target="_blank">LinkedIn</a></p>
+                <p><i class="fab fa-github"></i> <a href="https://github.com/Pushkarjay" target="_blank">GitHub</a></p>
+                <p><i class="fab fa-instagram"></i> <a href="https://instagram.com/pushkarjay" target="_blank">Instagram</a></p>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="footer-item copyright">
+                <p>&copy; 2025 HMart. All rights reserved.</p>
+            </div>
+        </div>
     </div>
   </footer>
+
+<style>
+  .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      text-align: center;
+  }
+
+  .footer-item {
+      padding: 10px;
+  }
+
+  .copyright {
+      grid-column: span 2; /* Makes copyright take full width */
+      text-align: center;
+  }
+</style>
+
+
 
   <script src="/js/main.js"></script>
   <script>
